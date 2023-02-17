@@ -1,0 +1,78 @@
+
+// 1st and 3rd question solution
+Create table Sales_H
+(
+    Order_id varchar (20),
+    Order_date date primary key,
+    Ship_date date,
+    Ship_mode varchar(50),
+    Customer_name varchar(50),
+    Segment varchar(50),
+    State varchar(70),
+    Country varchar(60),
+    Market varchar(50),
+    Region varchar(50),
+    Product_id varchar(60),
+    Category varchar(50),
+    Sub_category varchar(40),
+    Product_name varchar(150),
+    Sales varchar(40),
+    Quantity int,
+    Discount float,
+    Profit float,
+    Shipping_cost float,
+    Order_priority varchar(50),
+    year int
+ );
+---------------------------------------------------------------------xxxx 
+// 2nd question solution
+select * from sales_h;
+
+alter table sales_h
+add primary key (Order_id);
+---------------------------------------------------------------------xxxx
+// 5th question solution
+select * ,
+case 
+when discount > 0 then 'Yes'
+else
+'False'
+end as  Discount_Flag
+from sales_h;
+---------------------------------------------------------------------xxxx
+//6th question solution
+create or replace table sales_h_copy as
+select * from sales_h;
+
+select * from sales_h_copy;
+
+alter table sales_h_copy add column process_days int;
+
+UPDATE sales_h_copy
+       SET process_days= datediff(day,order_date,ship_date);
+
+select * from sales_h_copy;
+        
+
+-----------------------------------------------------------xxxx
+// 7th question solution
+select * from sales_h_copy;
+select *,
+case 
+when process_days <=3 then '5'
+when process_days >3 and process_days <=6 then '4'
+when process_days >6 and process_days <=10 then '3'
+else '2'
+end as Rating
+from sales_h_copy;
+------------------------------------------------------xxxxx
+// 4th question solution
+select *,
+case
+when Order_id like '%-2011-%' then '2040'
+else 
+order_id
+end as order_extract
+from sales_h;
+
+ 
